@@ -1,12 +1,53 @@
-Replace this file with your unit-2 eval run.
+# eval run written by run_eval.py at 2026-09-20T21:15:00Z
+# model: sonnet (pinned)
+# graded: C:\Users\tabai\.claude\skills\repro-check
+# packages: 20 scored
+#   rubric.md  sha256:bd4abd3907fa5428
+#   SKILL.md  sha256:1111848606c37dbb
+#
+grading 20 bundle(s) with rubric.md, model sonnet, 5 worker(s)...
+  pkg-01: ready
+  pkg-02: hold
+  pkg-03: hold
+  pkg-04: ready
+  pkg-05: hold
+  pkg-06: ready
+  pkg-07: hold
+  pkg-08: hold
+  pkg-09: ready
+  pkg-10: hold
+  pkg-11: ready
+  pkg-12: hold
+  pkg-13: hold
+  pkg-14: ready
+  pkg-15: hold
+  pkg-16: ready
+  pkg-17: hold
+  pkg-18: hold
+  pkg-19: ready
+  pkg-20: hold
 
-Generate it with `--save-run`: the harness writes this file itself, with
-a header recording the model, the tool it graded, and a fingerprint of
-each file in the run.
+item    gold   verdict  agree  note
+pkg-01  ready  ready    yes    
+pkg-02  hold   hold     yes    
+pkg-03  hold   hold     yes    
+pkg-04  ready  ready    yes    
+pkg-05  hold   hold     yes    
+pkg-06  ready  ready    yes    
+pkg-07  hold   hold     yes    
+pkg-08  hold   hold     yes    
+pkg-09  ready  ready    yes    
+pkg-10  hold   hold     yes    
+pkg-11  ready  ready    yes    
+pkg-12  hold   hold     yes    
+pkg-13  hold   hold     yes    
+pkg-14  ready  ready    yes    
+pkg-15  hold   hold     yes    
+pkg-16  ready  ready    yes    
+pkg-17  hold   hold     yes    
+pkg-18  hold   hold     yes    
+pkg-19  ready  ready    yes    
+pkg-20  hold   hold     yes    
 
-    python3 run_eval.py <your flags> --save-run eval-run.txt
-
-A partial `--limit` or `--only` run refuses to write the file, so only a
-complete run can land here. Do not hand-edit it: the story of the runs it
-took belongs in this unit's write-up, in the four fields below it:
-Run history, Package analysis, Check rationale, and Trade-offs.
+categories: environment 4/4  steps 4/4  outcome 4/4  voice 4/4  disclosure 4/4
+agreement: 20/20 scored items  (bar: 18/20: PASS)
