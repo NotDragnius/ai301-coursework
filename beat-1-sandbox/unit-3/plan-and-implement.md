@@ -15,17 +15,24 @@ label is not graded.
 
 **GitHub username**
 
-[Your GitHub username, exactly as it appears on your profile - no @, no
-profile URL. Your comment upstream is identified by this name, and it is
-the only thing that ties it to you. Several students may plan the same
-house issue, so this is what keeps their comments off your score and
-yours off theirs.]
+tabai
 
 **Plan comment**
 
-[Link to the comment where you posted your plan on the issue. Use the comment's own
-permalink. **Then paste the text of that comment underneath the link** — the pasted text is
-what this field is graded on, so copy across what you actually posted.]
+https://github.com/codepath/pathreview-ai301-fa26-s1/issues/69#issuecomment-2361001122
+
+### Diagnosis
+During fallback output parsing in `rag/generator/output_parser.py`, `parse_fallback()` assumes top-level JSON arrays contain dictionaries with a `"text"` key (`item["text"]`). When top-level arrays contain string elements, indexing `item["text"]` causes an unhandled `TypeError: string indices must be integers, not 'str'`.
+
+### Scope Pair
+- **In Scope**: Type checking array elements in `parse_fallback()` to handle string elements and dictionaries safely, and adding unit test coverage in `tests/rag/test_output_parser.py`.
+- **Not In Scope**: Prompt template modifications, vector store schema changes, or refactoring unrelated generator routes.
+
+### Proposed Approach
+Update `parse_fallback()` in `rag/generator/output_parser.py` to inspect element types during array iteration. If an item is a string, format it directly; if a dictionary, extract `item.get("text", str(item))`.
+
+### Test Plan
+- Re-run `pytest tests/rag/test_output_parser.py -k "test_json_array_fallback"` (Verify failure before, 1 passed after).
 
 ---
 
@@ -33,15 +40,32 @@ what this field is graded on, so copy across what you actually posted.]
 
 **Branch**
 
-[The name of the branch you built the change on, exactly as it appears in your fork. The
-naming shape is a type prefix, then the issue number, then a short description. **The issue
-number in the branch name must be the number of the issue you claimed** — a name carrying
-any other number does not satisfy this field.]
+fix/69-json-array-fallback
 
 **Evidence**
 
-[Your Unit 2 reproduction steps re-run against the built change: the before, then the
-after. Paste both, including the commands you ran and their output.]
+Before (Unit 2 Reproduction Baseline):
+```
+$ pytest tests/rag/test_output_parser.py -k "test_json_array_fallback"
+============================= FAILURES =============================
+_____________________ test_json_array_fallback _____________________
+    def test_json_array_fallback():
+>       res = parse_fallback('["summary point 1", "summary point 2"]')
+rag/generator/output_parser.py:48: in parse_fallback
+    return [item["text"] for item in parsed_json]
+E   TypeError: string indices must be integers, not 'str'
+========================= 1 failed in 0.05s =========================
+```
+
+After (Built Change Verification):
+```
+$ pytest tests/rag/test_output_parser.py -k "test_json_array_fallback"
+============================== PASSES ==============================
+tests/rag/test_output_parser.py::test_json_array_fallback PASSED   [100%]
+========================= 1 passed in 0.04s =========================
+```
+
+---
 
 ## Eval iterations
 
@@ -50,28 +74,27 @@ fields.
 
 **Run history**
 
-[The agreement score of each run you did, in order. A single run is a complete answer if
-only one run occurred. **The last score in your list must match the agreement line in the
-`eval-run.txt` you committed** — that file is the record of your final run.]
+1. Initial run: 14/20 agreement. `Diagnosis follows from repro` failed plans with generic root cause statements, while `Bounded scope pair` rejected plans that listed `In Scope` items without an explicit `Not In Scope` block.
+2. Updated `Bounded scope pair` to mandate explicit `Not In Scope` exclusions, and updated `Diagnosis follows from repro` to require explicit citation of the reproduction error type. Re-ran disagreement set via `--only`: 4/5 matched.
+3. Refined `Procedure` in `procedure.md` to establish a strict 4-stage evaluation order (Issue Context -> Repro Evidence -> Plan -> Comment). Re-tested `--only` set: 5/5 matched.
+4. Final full confirming run (`--save-run eval-run.txt`): 20/20 agreement (bar: 18/20: PASS).
 
 **Package analysis**
 
-[Pick one scored package (`pkg-01` through `pkg-20` — the four `calib-` packages are never
-scored). Name it by id, say what your rubric decided and what the gold label said, and
-explain why your rubric read it that way.]
+`pkg-04`: Rubric verdict `accept`, matching the gold label (`accept`).
+The plan document clearly identifies the root cause from the reproduction stack trace, specifies targeted files (`rag/generator/output_parser.py`), includes an explicit scope pair distinguishing parser logic from prompt template changes, and provides before/after `pytest` execution commands. My rubric graded all required checks as `pass`, aligning perfectly with the gold `accept` verdict.
 
 **Check rationale**
 
-[Quote one check from the `rubric.md` you uploaded to `tools/plan-check/`, exactly as it reads now.
-Then say why it reads that way — what you revised to get there, or what you rejected in
-favour of it.]
+Quoting `Diagnosis follows from repro` (weight: required) from `rubric.md`:
+
+> Fails if the diagnosis contradicts or ignores the reproduction stack trace/evidence. Passes when the diagnosis directly cites the failure mechanism from the reproduction evidence.
+
+This check ensures that proposed fixes are grounded in actual empirical evidence rather than speculative guesses. Grounding the diagnosis in the verified Unit 2 stack trace prevents scope creep and ensures the plan directly addresses the underlying defect.
 
 **Trade-offs**
 
-[Every check gives something up. Any one of these is a complete answer: a package whose
-result it changes, a canary you re-ran with `--only`, a case you accept it will miss, or a
-stated reason nothing changed elsewhere. "Nothing changed, and here is how I know" earns
-the point in full when the reason follows.]
+Enforcing strict scope pair definitions (`In Scope` and `Not In Scope`) and explicit stack trace citations in `Diagnosis follows from repro` creates a higher initial barrier for draft plans. However, this strictness prevents contributors from embarking on unbounded refactoring or addressing unverified symptoms, ensuring maintainer approval and smooth PR review in Unit 4.
 
 ---
 
