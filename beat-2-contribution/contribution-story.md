@@ -8,9 +8,8 @@ format criteria grade exactly that. Your course repo link is the whole submissio
 files and no evidence uploads are part of Assignment 5.
 
 **Contribution Number:** [1]
-**Student:** [Student name]
-**GitHub Username:** [your GitHub username, exactly as it appears on your profile - no @, no
-profile URL. Your comments upstream are identified by this name.]
+**Student:** Tabai
+**GitHub Username:** NotDragnius
 **Issue:** [GitHub issue link]
 **Pull Request:** [GitHub PR link, once opened]
 
@@ -55,10 +54,9 @@ happened; these entries are the toolkit's own timeline.
 All four entries are graded. Keep every heading below, and fill each
 one in the week it belongs to.
 
-**Unit 5: [one line on the tool work]**
+**Unit 5: Built issue-scout and ran first wild scans**
 
-[2-4 sentences: what you built (the scout, your strategy), what broke
-or fell short, what changed because of it.]
+2026-10-11: I adapted the Unit 1 issue-select skill into issue-scout, preserving my core evaluation rubric and evidence guide while adding an autonomous GitHub issue-discovery pipeline. I authored a search strategy targeting Python backend logic, API endpoints, and data/JSON parsing libraries (FastAPI, Pydantic, HTTPX). The scout scanned and graded 5 candidates, accepting two (FastAPI and Pydantic) and rejecting three due to unresolved architectural debates and active claims in comment threads. I patched my rubric to clarify live maintainer commit evidence sources and updated ranking filters to prioritize threads without recent rival claim activity.
 
 **Unit 6: [one line on the tool work]**
 
