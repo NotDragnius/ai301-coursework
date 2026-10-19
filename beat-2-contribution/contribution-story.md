@@ -1,4 +1,4 @@
-# Contribution: [Issue Title]
+# Contribution: Route query parameter validation defect in FastAPI
 
 Path: `beat-2-contribution/contribution-story.md`
 
@@ -10,7 +10,7 @@ files and no evidence uploads are part of Assignment 5.
 **Contribution Number:** [1]
 **Student:** Tabai
 **GitHub Username:** NotDragnius
-**Issue:** [GitHub issue link]
+**Issue:** https://github.com/tiangolo/fastapi/issues/11245
 **Pull Request:** [GitHub PR link, once opened]
 
 One repository, built across units 5 to 8, telling the whole story of your real
@@ -58,11 +58,9 @@ one in the week it belongs to.
 
 2026-10-11: I adapted the Unit 1 issue-select skill into issue-scout, preserving my core evaluation rubric and evidence guide while adding an autonomous GitHub issue-discovery pipeline. I authored a search strategy targeting Python backend logic, API endpoints, and data/JSON parsing libraries (FastAPI, Pydantic, HTTPX). The scout scanned and graded 5 candidates, accepting two (FastAPI and Pydantic) and rejecting three due to unresolved architectural debates and active claims in comment threads. I patched my rubric to clarify live maintainer commit evidence sources and updated ranking filters to prioritize threads without recent rival claim activity.
 
-**Unit 6: [one line on the tool work]**
+**Unit 6: Installed the voice-guard and drafted my claim for FastAPI**
 
-[2-4 sentences: the voice-guard, the repo-memory file. What broke or
-fell short, and what changed because of it. "Nothing broke" counts when
-it is true - say how you know.]
+2026-10-18: I set up the voice-guard hook on my outgoing comments and merged my earlier voice guides into one canonical file at `~/.claude/voice-guard/voice-guide.md`. I added upstream rules for claims, questions, and pings, each with a wrong/right example from how I actually write. The guard stopped my first claim draft because I promised a quick fix before testing it locally, so I rewrote it to focus strictly on reproducing the behavior first. On Windows, symlinks between skill folders created separate file copies, so I used pointer lines in repro-check, plan-check, and pr-precheck to make sure all tools read the same guide. I also set up `CLAUDE.local.md` for FastAPI with its test commands and routing subsystem notes, kept it under 60 lines, and added it to `.git/info/exclude`.
 
 **Unit 7: [one line on the tool work]**
 
@@ -78,24 +76,21 @@ drafted, what you did with the draft.]
 
 ## Why I Chose This Issue
 
-[1-2 paragraphs in your own words: how you searched, what your scan
-surfaced, what your scout's verdict said, why this issue fits your
-profile, and what you hope to learn. If your scout's verdict on it
-was reject and you chose it anyway, say so here and say why; choosing
-against your own tool silently is what loses points. Close with an
-honest read of the tool itself: where the scout fell short on a real
-wild search and what you changed or would change, or what convinced
-you it held up. **Record the link to your claim comment in this section too.**
-Not claimed yet? Write `claim pending` and today's date where the link goes,
-and add the link the moment your claim lands.]
+I picked an issue in FastAPI around query parameter parsing in `fastapi/routing.py` (`https://github.com/tiangolo/fastapi/issues/11245`). When certain query parameter combinations with defaults are passed into a route handler, FastAPI throws unexpected validation errors instead of properly converting them into the expected parameter types. The reporter included a clear reproduction script that triggers the failure on clean Python 3.12 installs, and the whole bug is isolated to route dependency resolution without needing databases or external network services.
+
+My scan on 2026-10-18 evaluated five issues using the patched rubric with `scope-feasible` and difficulty notes. It accepted two candidates: this FastAPI issue with a straightforward difficulty note, and a Pydantic schema serialization issue with a moderate difficulty note. I chose the FastAPI issue because it sits right where I want to focus my coursework—Python backend routing, request validation, and parameter handling. I want to learn how FastAPI connects route declarations with Pydantic's internal validators, and how maintainers test and review changes to core routing logic.
+
+The scout held up well during this run. Swapping my old scope check for `scope-feasible` stopped the scout from rejecting good issues just because the writeup described multiple parameter combinations, and correctly labeled this one straightforward because the logic lives in `fastapi/routing.py`. At the same time, the floor check still caught and rejected marshmallow#2144 (which turned out to be an open-ended discussion about a v4 refactor), while the unclaimed check rejected httpx#3110 and werkzeug#2890 because other contributors were already working on them.
+
+Claim comment: `claim pending (2026-10-18)` — drafted in `claim-draft.md`, verified through `check_voice.py`, and ready to post:
+> "I would like to work on reproducing and resolving this issue. My first step is setting up an isolated test case in `tests/test_query_params.py` to reproduce the query parameter validation behavior in `fastapi/routing.py` on Python 3.12. I will follow up here with a reproduction report and environment details once verified against the existing test suite."
 
 **Toolkit**
 
-- Tool: issue-scout (your scout: your search strategy, your rubric),
-  and how you used it
-- What it produced: [the scan and its verdict on this issue, described]
-- Difficulties: [where it fell short, or "none met" if none did]
-- What changed: [what you patched or would update, or "nothing"]
+- Tool: issue-scout with patched rubric (`scope-feasible` and difficulty notes), run in live scan mode.
+- What it produced: Scan 2 accepted FastAPI #11245 with a straightforward difficulty note, confirming recent commits within 3 days, zero assignees, zero open PRs, and bounded logic in `fastapi/routing.py`.
+- Difficulties: In earlier scans, the old scope check was too rigid and failed real bug reports that mentioned multiple edge cases. Shifting scope from a binary gate to a difficulty note fixed that without letting big umbrella issues through.
+- What changed: Replaced the scope check with `scope-feasible`, added the difficulty note section, and added tie-break ranking filters to skip threads bumped by recent claim comments.
 
 ---
 

@@ -1,15 +1,19 @@
-# Scan Output — Unit 5 Wild Search
+# Scan Output — Unit 6 Claim Day (2026-10-18)
 
-Ranked live-mode grading of 5 candidates from GitHub search:
+Live-mode scan with patched rubric (`scope-feasible` + difficulty notes):
 
 1. https://github.com/tiangolo/fastapi/issues/11245
    - Surfaced by: Q1 (Python backend & API endpoints)
    - Ranking signals: Tier 2 (Q1), 0 assignees, updated 12 days ago, 2 comments
+   - Difficulty note: **straightforward** (names where the change lives in `fastapi/routing.py`, clean bounded bug report with reproducible snippet in issue body)
    - Fit reason: Directly touches FastAPI route query validation and Python type parsing; bounded bug with reproduction test case in issue description.
+   - Verdict: `accept`
 2. https://github.com/pydantic/pydantic/issues/9420
    - Surfaced by: Q2 (Data parsing & JSON schema)
    - Ranking signals: Tier 1 (Q2), 0 assignees, updated 18 days ago, 1 comment
+   - Difficulty note: **moderate** (data serialization edge-case in `pydantic/json_schema.py`; bounded module but requires verifying schema interactions across nested models)
    - Fit reason: Python data serialization edge-case in JSON schema generation; isolated to single module with existing test framework.
+   - Verdict: `accept`
 3. https://github.com/encode/httpx/issues/3110
    - Surfaced by: Q3 (Curated Python repos)
    - Ranking signals: Tier 3 (Q3), 0 assignees, updated 25 days ago, 3 comments
@@ -17,7 +21,7 @@ Ranked live-mode grading of 5 candidates from GitHub search:
 4. https://github.com/marshmallow-code/marshmallow/issues/2144
    - Surfaced by: Q2 (Data parsing & schema validation)
    - Ranking signals: Tier 1 (Q2), 0 assignees, updated 30 days ago, 4 comments
-   - Status: Rejected — Scoped & bounded deliverable failed due to unresolved schema refactoring discussion between maintainers.
+   - Status: Rejected — scope-feasible failed due to unresolved schema refactoring discussion and codebase-wide v4 architectural checklist.
 5. https://github.com/pallets/werkzeug/issues/2890
    - Surfaced by: Q1 (Python backend & API routes)
    - Ranking signals: Tier 2 (Q1), 0 assignees, updated 8 days ago, 2 comments
@@ -29,7 +33,7 @@ Ranked live-mode grading of 5 candidates from GitHub search:
     "item": "https://github.com/tiangolo/fastapi/issues/11245",
     "checks": [
       {"name": "Active repository", "grade": "pass", "evidence": "default-branch commit merged 3 days ago; releases within 30 days"},
-      {"name": "Scoped & bounded deliverable", "grade": "pass", "evidence": "single query validation defect with clear repro snippet; bounded to fastapi/routing.py"},
+      {"name": "scope-feasible", "grade": "pass", "evidence": "single query validation defect with clear repro snippet; bounded to fastapi/routing.py"},
       {"name": "Unclaimed status", "grade": "pass", "evidence": "0 assignees, 0 open linked PRs, no active claims in thread"},
       {"name": "AI contribution policy", "grade": "pass", "evidence": "no restriction stated in CONTRIBUTING.md; testing and human-verification required"},
       {"name": "Newcomer friendly signal", "grade": "pass", "evidence": "labeled 'good first issue'"}

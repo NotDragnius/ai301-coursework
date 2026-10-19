@@ -19,3 +19,12 @@ Rubric:
 
 Strategy:
 - `search-strategy.md`: Refined Query 2 and Query 3 search terms and added filter 8 (recency tie-break) to prefer older `updatedAt` within the 60-day window, avoiding threads recently bumped by fresh rival claim comments.
+
+## Scan 2 — Claim Day (2026-10-18)
+
+- 2026-10-18, rubric patch: Swapped my old scope check for `scope-feasible` and added difficulty notes (straightforward, moderate, ambitious). The old check made sense in the sandbox where issues were artificially bounded, but in the wild it was rejecting good issues just because the reporter listed several edge cases or an extra file. Scope works better now as a difficulty note while the floor still catches real umbrellas.
+- 2026-10-18, difficulty notes: Marked `fastapi#11245` as straightforward because the problem is isolated right in `fastapi/routing.py`. Marked `pydantic#9420` as moderate because schema generation touches several model files.
+- 2026-10-18, umbrella check: `marshmallow#2144` still failed `scope-feasible` because the discussion is really an open-ended checklist for an upcoming v4 rewrite, which belongs in multiple PRs.
+- 2026-10-18, choosing the issue: Picked `fastapi#11245` over `pydantic#9420`. Both passed every check, but FastAPI's route query validation is a cleaner fit for my Python backend focus and already has a short script to reproduce it.
+
+
